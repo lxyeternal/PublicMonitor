@@ -2,14 +2,14 @@
   "document_id": "123456",
   "events": [
     {
-      "event_id": "EV1_EV2_EV6",
-      "summary": "针对华为云云容器引擎的网络攻击与GitHub披露的XSS漏洞相关，至少12家科研机构的系统遭到入侵。",
+      "event_id": "EV1_EV2_EV6_EV9",
+      "summary": "针对华为云云容器引擎的网络攻击与GitHub披露的XSS漏洞相关，攻击者利用漏洞注入恶意代码，窃取身份凭证并建立后门。",
       "type": "网络攻击事件",
       "trigger": {
         "text": "攻击",
         "position": [
-          18,
-          22
+          20,
+          23
         ]
       },
       "elements": {
@@ -29,35 +29,44 @@
             "role": "受害者"
           }
         ],
-        "when": "未明确提及",
+        "when": "近期",
         "where": [
           {
-            "entity_id": "E13",
-            "text": "华为云CCE（Cloud Container Engine）4.0版本",
+            "entity_id": "E6",
+            "text": "云容器引擎",
             "type": "OTHER"
           }
         ],
-        "why": "利用XSS漏洞窃取身份凭证并建立后门。",
-        "how": "通过容器引擎Web界面中未经充分过滤的用户输入字段注入恶意JavaScript代码，窃取身份凭证并建立持久后门。"
+        "why": "利用XSS漏洞进行攻击。",
+        "how": "通过注入恶意JavaScript代码，窃取身份凭证并建立后门。"
       },
       "sentiment": {
         "polarity": "NEGATIVE",
-        "intensity": 0.9
+        "intensity": 0.8
       },
       "importance": 5,
-      "relations": [],
-      "source_text": "网络安全监控系统捕获到针对华为云云容器引擎的大量攻击尝试，攻击方式与最近在GitHub上披露的XSS漏洞相符。这些攻击主要针对科研单位客户，成功利用后可能导致监管处罚。华为云安全团队已发布临时缓解方案。 据安全分析人员报告，这些攻击呈现高度协调性，疑似来自于某高级持续性威胁（APT）组织。攻击者利用容器引擎Web界面中未经充分过滤的用户输入字段，注入恶意JavaScript代码。当管理员访问相关页面时，攻击脚本会在其浏览器中执行，窃取身份凭证并建立持久后门。 受影响的主要是使用华为云CCE（Cloud Container Engine）4.0版本的机构，尤其是配置较为开放的开发测试环境。初步调查显示，至少12家科研机构的系统遭到了不同程度的入侵，其中包含3家从事敏感研究的国家重点实验室。",
+      "relations": [
+        {
+          "related_event_id": "EV7",
+          "relation_type": "因果关系"
+        },
+        {
+          "related_event_id": "EV8",
+          "relation_type": "因果关系"
+        }
+      ],
+      "source_text": "网络安全监控系统捕获到针对华为云云容器引擎的大量攻击尝试，攻击方式与最近在GitHub上披露的XSS漏洞相符。这些攻击主要针对科研单位客户，成功利用后可能导致监管处罚。华为云安全团队已发布临时缓解方案。 据安全分析人员报告，这些攻击呈现高度协调性，疑似来自于某高级持续性威胁（APT）组织。攻击者利用容器引擎Web界面中未经充分过滤的用户输入字段，注入恶意JavaScript代码。当管理员访问相关页面时，攻击脚本会在其浏览器中执行，窃取身份凭证并建立持久后门。",
       "confidence": 0.95
     },
     {
-      "event_id": "EV4_EV7",
-      "summary": "华为云安全响应中心发布公告CVE-2025-XXXX，评定漏洞为高危，并提供临时缓解措施。",
-      "type": "公告发布事件",
+      "event_id": "EV5_EV10",
+      "summary": "华为云安全响应中心发布CVE-2025-XXXX漏洞公告，并提供临时缓解措施。",
+      "type": "公告事件",
       "trigger": {
         "text": "发布",
         "position": [
-          531,
-          563
+          483,
+          515
         ]
       },
       "elements": {
@@ -77,33 +86,34 @@
             "role": "受众"
           }
         ],
-        "when": {
-          "entity_id": "E16",
-          "text": "昨日",
-          "type": "DATE"
-        },
+        "when": "昨日",
         "where": [],
-        "why": "警示客户及时修复漏洞。",
-        "how": "发布公告并提供临时缓解措施，包括启用Web应用防火墙（WAF）、限制管理控制台访问IP、升级到最新安全补丁版本，以及监控异常API调用活动。"
+        "why": "应对高危漏洞。",
+        "how": "发布公告并提供临时缓解措施，包括启用Web应用防火墙（WAF）、限制管理控制台访问IP、升级安全补丁版本，以及监控异常API调用活动。"
       },
       "sentiment": {
-        "polarity": "NEUTRAL",
-        "intensity": 0.6
+        "polarity": "POSITIVE",
+        "intensity": 0.7
       },
-      "importance": 4,
-      "relations": [],
+      "importance": 5,
+      "relations": [
+        {
+          "related_event_id": "EV1_EV2_EV6_EV9",
+          "relation_type": "因果关系"
+        }
+      ],
       "source_text": "华为云安全响应中心（HWCSRC）已于昨日紧急发布公告CVE-2025-XXXX，将此漏洞评为\"高危\"级别。临时缓解措施包括：启用Web应用防火墙（WAF）并配置特定规则、限制管理控制台访问IP、升级到最新的安全补丁版本，以及监控异常API调用活动。",
-      "confidence": 0.85
+      "confidence": 0.9
     },
     {
-      "event_id": "EV8",
-      "summary": "国家网络安全主管部门警告相关行业提高警惕。",
-      "type": "警告事件",
+      "event_id": "EV11",
+      "summary": "国家网络安全主管部门介入调查并警告相关行业提高警惕。",
+      "type": "安全警告事件",
       "trigger": {
         "text": "警告",
         "position": [
-          768,
-          792
+          678,
+          692
         ]
       },
       "elements": {
@@ -120,37 +130,37 @@
             "entity_id": "E9",
             "text": "科研单位客户",
             "type": "OTHER",
-            "role": "受警告对象"
+            "role": "受众"
           }
         ],
-        "when": "未明确提及",
-        "where": [],
-        "why": "应对网络攻击事件。",
-        "how": "发布警告并要求客户修复漏洞。"
+        "when": null,
+        "where": null,
+        "why": "应对网络攻击事件及合规风险。",
+        "how": "发布警告并要求客户完成漏洞修复和提交安全事件报告。"
       },
       "sentiment": {
-        "polarity": "NEUTRAL",
-        "intensity": 0.5
+        "polarity": "NEGATIVE",
+        "intensity": 0.6
       },
-      "importance": 3,
+      "importance": 4,
       "relations": [
         {
-          "related_event_id": "EV9",
-          "relation_type": "BEFORE"
+          "related_event_id": "EV1_EV2_EV6_EV9",
+          "relation_type": "因果关系"
         }
       ],
       "source_text": "国家网络安全主管部门已介入调查，并警告相关行业提高警惕。",
-      "confidence": 0.8
+      "confidence": 0.85
     },
     {
-      "event_id": "EV9",
+      "event_id": "EV12",
       "summary": "业内专家建议加强容器安全审计和权限管理。",
-      "type": "建议事件",
+      "type": "安全建议事件",
       "trigger": {
         "text": "建议",
         "position": [
-          1024,
-          1028
+          1020,
+          1024
         ]
       },
       "elements": {
@@ -170,22 +180,17 @@
             "role": "建议对象"
           }
         ],
-        "when": "未明确提及",
-        "where": [],
+        "when": null,
+        "where": null,
         "why": "防范类似攻击事件。",
         "how": "建议定期审计容器安全并实施最小权限原则。"
       },
       "sentiment": {
         "polarity": "POSITIVE",
-        "intensity": 0.7
+        "intensity": 0.6
       },
       "importance": 3,
-      "relations": [
-        {
-          "related_event_id": "EV8",
-          "relation_type": "AFTER"
-        }
-      ],
+      "relations": [],
       "source_text": "业内专家建议，各组织应定期进行容器安全审计，实施最小权限原则，并建立完善的容器镜像管理流程，以防范类似攻击。",
       "confidence": 0.85
     }
@@ -193,14 +198,77 @@
   "entities": [
     {
       "entity_id": "E1",
-      "text": "网络安全监控系统捕获到针对华为云云容器引擎的大量攻击尝试，攻击方式与最近在GitHub上披露的XSS漏洞相符。这些攻击主要针对科研单位客户，成功利用后可能导致监管处罚。华为云安全团队已发布临时缓解方案",
+      "text": "业内专家",
       "type": "PERSON",
       "mentions": [
         {
-          "text": "网络安全监控系统捕获到针对华为云云容器引擎的大量攻击尝试，攻击方式与最近在GitHub上披露的XSS漏洞相符。这些攻击主要针对科研单位客户，成功利用后可能导致监管处罚。华为云安全团队已发布临时缓解方案",
+          "text": "业内专家",
           "position": [
-            0,
-            100
+            1020,
+            1024
+          ]
+        }
+      ]
+    },
+    {
+      "entity_id": "E5",
+      "text": "华为云",
+      "type": "ORGANIZATION",
+      "mentions": [
+        {
+          "text": "华为云",
+          "position": [
+            20,
+            23
+          ]
+        },
+        {
+          "text": "华为云",
+          "position": [
+            191,
+            194
+          ]
+        },
+        {
+          "text": "华为云",
+          "position": [
+            671,
+            674
+          ]
+        }
+      ]
+    },
+    {
+      "entity_id": "E6",
+      "text": "云容器引擎",
+      "type": "OTHER",
+      "mentions": [
+        {
+          "text": "云容器引擎",
+          "position": [
+            23,
+            29
+          ]
+        },
+        {
+          "text": "容器引擎",
+          "position": [
+            246,
+            250
+          ]
+        }
+      ]
+    },
+    {
+      "entity_id": "E9",
+      "text": "科研单位客户",
+      "type": "OTHER",
+      "mentions": [
+        {
+          "text": "科研单位客户",
+          "position": [
+            75,
+            81
           ]
         }
       ]
@@ -220,34 +288,6 @@
       ]
     },
     {
-      "entity_id": "E9",
-      "text": "科研单位客户",
-      "type": "OTHER",
-      "mentions": [
-        {
-          "text": "科研单位客户",
-          "position": [
-            74,
-            80
-          ]
-        }
-      ]
-    },
-    {
-      "entity_id": "E13",
-      "text": "华为云CCE（Cloud Container Engine）4.0版本",
-      "type": "OTHER",
-      "mentions": [
-        {
-          "text": "华为云CCE（Cloud Container Engine）4.0版本",
-          "position": [
-            394,
-            435
-          ]
-        }
-      ]
-    },
-    {
       "entity_id": "E15",
       "text": "华为云安全响应中心（HWCSRC）",
       "type": "ORGANIZATION",
@@ -255,22 +295,8 @@
         {
           "text": "华为云安全响应中心（HWCSRC）",
           "position": [
-            531,
-            563
-          ]
-        }
-      ]
-    },
-    {
-      "entity_id": "E16",
-      "text": "昨日",
-      "type": "DATE",
-      "mentions": [
-        {
-          "text": "昨日",
-          "position": [
-            567,
-            569
+            483,
+            515
           ]
         }
       ]
@@ -283,8 +309,8 @@
         {
           "text": "国家网络安全主管部门",
           "position": [
-            768,
-            792
+            678,
+            692
           ]
         }
       ]

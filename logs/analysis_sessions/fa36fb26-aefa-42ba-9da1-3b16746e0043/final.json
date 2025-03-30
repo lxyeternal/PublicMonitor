@@ -1,0 +1,327 @@
+{
+  "document_id": "123456",
+  "events_count": 4,
+  "entities_count": 7,
+  "complete_result": {
+    "document_id": "123456",
+    "events": [
+      {
+        "event_id": "EV1_EV2_EV6_EV9",
+        "summary": "针对华为云云容器引擎的网络攻击与GitHub披露的XSS漏洞相关，攻击者利用漏洞注入恶意代码，窃取身份凭证并建立后门。",
+        "type": "网络攻击事件",
+        "trigger": {
+          "text": "攻击",
+          "position": [
+            20,
+            23
+          ]
+        },
+        "elements": {
+          "who": [
+            {
+              "entity_id": "E11",
+              "text": "高级持续性威胁（APT）组织",
+              "type": "OTHER",
+              "role": "攻击者"
+            }
+          ],
+          "whom": [
+            {
+              "entity_id": "E9",
+              "text": "科研单位客户",
+              "type": "OTHER",
+              "role": "受害者"
+            }
+          ],
+          "when": "近期",
+          "where": [
+            {
+              "entity_id": "E6",
+              "text": "云容器引擎",
+              "type": "OTHER"
+            }
+          ],
+          "why": "利用XSS漏洞进行攻击。",
+          "how": "通过注入恶意JavaScript代码，窃取身份凭证并建立后门。"
+        },
+        "sentiment": {
+          "polarity": "NEGATIVE",
+          "intensity": 0.8
+        },
+        "importance": 5,
+        "relations": [
+          {
+            "related_event_id": "EV7",
+            "relation_type": "因果关系"
+          },
+          {
+            "related_event_id": "EV8",
+            "relation_type": "因果关系"
+          }
+        ],
+        "source_text": "网络安全监控系统捕获到针对华为云云容器引擎的大量攻击尝试，攻击方式与最近在GitHub上披露的XSS漏洞相符。这些攻击主要针对科研单位客户，成功利用后可能导致监管处罚。华为云安全团队已发布临时缓解方案。 据安全分析人员报告，这些攻击呈现高度协调性，疑似来自于某高级持续性威胁（APT）组织。攻击者利用容器引擎Web界面中未经充分过滤的用户输入字段，注入恶意JavaScript代码。当管理员访问相关页面时，攻击脚本会在其浏览器中执行，窃取身份凭证并建立持久后门。",
+        "confidence": 0.95
+      },
+      {
+        "event_id": "EV5_EV10",
+        "summary": "华为云安全响应中心发布CVE-2025-XXXX漏洞公告，并提供临时缓解措施。",
+        "type": "公告事件",
+        "trigger": {
+          "text": "发布",
+          "position": [
+            483,
+            515
+          ]
+        },
+        "elements": {
+          "who": [
+            {
+              "entity_id": "E15",
+              "text": "华为云安全响应中心（HWCSRC）",
+              "type": "ORGANIZATION",
+              "role": "发布主体"
+            }
+          ],
+          "whom": [
+            {
+              "entity_id": "E9",
+              "text": "科研单位客户",
+              "type": "OTHER",
+              "role": "受众"
+            }
+          ],
+          "when": "昨日",
+          "where": [],
+          "why": "应对高危漏洞。",
+          "how": "发布公告并提供临时缓解措施，包括启用Web应用防火墙（WAF）、限制管理控制台访问IP、升级安全补丁版本，以及监控异常API调用活动。"
+        },
+        "sentiment": {
+          "polarity": "POSITIVE",
+          "intensity": 0.7
+        },
+        "importance": 5,
+        "relations": [
+          {
+            "related_event_id": "EV1_EV2_EV6_EV9",
+            "relation_type": "因果关系"
+          }
+        ],
+        "source_text": "华为云安全响应中心（HWCSRC）已于昨日紧急发布公告CVE-2025-XXXX，将此漏洞评为\"高危\"级别。临时缓解措施包括：启用Web应用防火墙（WAF）并配置特定规则、限制管理控制台访问IP、升级到最新的安全补丁版本，以及监控异常API调用活动。",
+        "confidence": 0.9
+      },
+      {
+        "event_id": "EV11",
+        "summary": "国家网络安全主管部门介入调查并警告相关行业提高警惕。",
+        "type": "安全警告事件",
+        "trigger": {
+          "text": "警告",
+          "position": [
+            678,
+            692
+          ]
+        },
+        "elements": {
+          "who": [
+            {
+              "entity_id": "E18",
+              "text": "国家网络安全主管部门",
+              "type": "ORGANIZATION",
+              "role": "警告主体"
+            }
+          ],
+          "whom": [
+            {
+              "entity_id": "E9",
+              "text": "科研单位客户",
+              "type": "OTHER",
+              "role": "受众"
+            }
+          ],
+          "when": null,
+          "where": null,
+          "why": "应对网络攻击事件及合规风险。",
+          "how": "发布警告并要求客户完成漏洞修复和提交安全事件报告。"
+        },
+        "sentiment": {
+          "polarity": "NEGATIVE",
+          "intensity": 0.6
+        },
+        "importance": 4,
+        "relations": [
+          {
+            "related_event_id": "EV1_EV2_EV6_EV9",
+            "relation_type": "因果关系"
+          }
+        ],
+        "source_text": "国家网络安全主管部门已介入调查，并警告相关行业提高警惕。",
+        "confidence": 0.85
+      },
+      {
+        "event_id": "EV12",
+        "summary": "业内专家建议加强容器安全审计和权限管理。",
+        "type": "安全建议事件",
+        "trigger": {
+          "text": "建议",
+          "position": [
+            1020,
+            1024
+          ]
+        },
+        "elements": {
+          "who": [
+            {
+              "entity_id": "E1",
+              "text": "业内专家",
+              "type": "PERSON",
+              "role": "建议主体"
+            }
+          ],
+          "whom": [
+            {
+              "entity_id": "E9",
+              "text": "科研单位客户",
+              "type": "OTHER",
+              "role": "建议对象"
+            }
+          ],
+          "when": null,
+          "where": null,
+          "why": "防范类似攻击事件。",
+          "how": "建议定期审计容器安全并实施最小权限原则。"
+        },
+        "sentiment": {
+          "polarity": "POSITIVE",
+          "intensity": 0.6
+        },
+        "importance": 3,
+        "relations": [],
+        "source_text": "业内专家建议，各组织应定期进行容器安全审计，实施最小权限原则，并建立完善的容器镜像管理流程，以防范类似攻击。",
+        "confidence": 0.85
+      }
+    ],
+    "entities": [
+      {
+        "entity_id": "E1",
+        "text": "业内专家",
+        "type": "PERSON",
+        "mentions": [
+          {
+            "text": "业内专家",
+            "position": [
+              1020,
+              1024
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E5",
+        "text": "华为云",
+        "type": "ORGANIZATION",
+        "mentions": [
+          {
+            "text": "华为云",
+            "position": [
+              20,
+              23
+            ]
+          },
+          {
+            "text": "华为云",
+            "position": [
+              191,
+              194
+            ]
+          },
+          {
+            "text": "华为云",
+            "position": [
+              671,
+              674
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E6",
+        "text": "云容器引擎",
+        "type": "OTHER",
+        "mentions": [
+          {
+            "text": "云容器引擎",
+            "position": [
+              23,
+              29
+            ]
+          },
+          {
+            "text": "容器引擎",
+            "position": [
+              246,
+              250
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E9",
+        "text": "科研单位客户",
+        "type": "OTHER",
+        "mentions": [
+          {
+            "text": "科研单位客户",
+            "position": [
+              75,
+              81
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E11",
+        "text": "高级持续性威胁（APT）组织",
+        "type": "OTHER",
+        "mentions": [
+          {
+            "text": "高级持续性威胁（APT）组织",
+            "position": [
+              186,
+              211
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E15",
+        "text": "华为云安全响应中心（HWCSRC）",
+        "type": "ORGANIZATION",
+        "mentions": [
+          {
+            "text": "华为云安全响应中心（HWCSRC）",
+            "position": [
+              483,
+              515
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E18",
+        "text": "国家网络安全主管部门",
+        "type": "ORGANIZATION",
+        "mentions": [
+          {
+            "text": "国家网络安全主管部门",
+            "position": [
+              678,
+              692
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "timestamp": 1743306641,
+  "session_id": "fa36fb26-aefa-42ba-9da1-3b16746e0043",
+  "stage": "final"
+}

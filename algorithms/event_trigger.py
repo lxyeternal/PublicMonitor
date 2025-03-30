@@ -1,6 +1,8 @@
 import logging
 import os
 import re
+import json
+import time
 from typing import List, Dict, Any
 
 logger = logging.getLogger(__name__)
@@ -70,6 +72,13 @@ class EventTriggerExtractor:
         """
         logger.info("开始提取事件触发词")
         
+        # 详细日志记录
+        detailed_log = {
+            "triggers": [],
+            "text": text,
+            "text_length": len(text)
+        }
+        
         # 分词
         words = re.findall(r'\b\w+\b', text.lower())
         
@@ -95,7 +104,42 @@ class EventTriggerExtractor:
                         "potential_type": self.all_triggers[word]
                     }
                     triggers.append(trigger)
+                    
+                    # 记录到详细日志
+                    detailed_log["triggers"].append({
+                        "trigger_id": f"T{trigger_id_counter}",
+                        "text": original_text,
+                        "position": [start_pos, end_pos],
+                        "type": self.all_triggers[word],
+                        "match_pattern": word,
+                        "original_form": word
+                    })
+                    
                     trigger_id_counter += 1
         
+        # 写入详细日志
+        self._log_detailed_analysis(detailed_log)
+        
         logger.info(f"提取到 {len(triggers)} 个事件触发词")
-        return triggers 
+        return triggers
+
+    def _log_detailed_analysis(self, detailed_log):
+        """记录详细的触发词分析日志"""
+        # 创建日志目录
+        log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 
+                              "logs", "analysis_logs", "triggers")
+        os.makedirs(log_dir, exist_ok=True)
+        
+        # 创建日志文件名（使用时间戳）
+        timestamp = int(time.time())
+        log_file = os.path.join(log_dir, f"trigger_analysis_{timestamp}.json")
+        
+        # 添加时间戳
+        detailed_log["timestamp"] = timestamp
+        detailed_log["total_triggers"] = len(detailed_log["triggers"])
+        
+        # 写入日志文件
+        with open(log_file, 'w', encoding='utf-8') as f:
+            json.dump(detailed_log, f, ensure_ascii=False, indent=2)
+        
+        logger.info(f"触发词提取详细分析日志已保存至: {log_file}") 

@@ -1,6 +1,8 @@
 import logging
 import spacy
 import os
+import time
+import json
 from typing import List, Dict, Any
 
 logger = logging.getLogger(__name__)
@@ -51,15 +53,7 @@ class NERExtractor:
                 logger.warning("使用空白模型作为后备")
     
     def extract_entities(self, text: str) -> List[Dict[str, Any]]:
-        """
-        从文本中提取命名实体
-        
-        Args:
-            text: 输入文本
-            
-        Returns:
-            实体列表，每个实体包含ID、文本、类型和位置信息
-        """
+        """从文本中提取命名实体"""
         logger.info("开始提取命名实体")
         
         # 使用SpaCy处理文本
@@ -89,9 +83,23 @@ class NERExtractor:
             "NORP": "OTHER"
         }
         
+        # 用于详细日志的实体列表
+        detailed_entities_log = []
+        
         # 处理实体
         for ent in doc.ents:
             entity_type = entity_type_map.get(ent.label_, "OTHER")
+            
+            # 记录详细信息到日志列表
+            detailed_entities_log.append({
+                "text": ent.text,
+                "type": entity_type,
+                "label": ent.label_,
+                "start": ent.start_char,
+                "end": ent.end_char,
+                "start_token": ent.start,
+                "end_token": ent.end
+            })
             
             # 检查是否已存在相同文本的实体
             existing_entity = next((e for e in entities if e["text"].lower() == ent.text.lower()), None)
@@ -116,5 +124,35 @@ class NERExtractor:
                 entities.append(entity)
                 entity_id_counter += 1
         
+        # 记录详细日志
+        self._log_detailed_analysis(text, detailed_entities_log)
+        
         logger.info(f"提取到 {len(entities)} 个命名实体")
-        return entities 
+        return entities
+
+    def _log_detailed_analysis(self, text, entities_log):
+        """记录详细的实体分析日志"""
+        # 创建日志目录
+        log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 
+                              "logs", "analysis_logs", "ner")
+        os.makedirs(log_dir, exist_ok=True)
+        
+        # 创建日志文件名（使用时间戳）
+        timestamp = int(time.time())
+        log_file = os.path.join(log_dir, f"ner_analysis_{timestamp}.json")
+        
+        # 准备日志内容
+        log_content = {
+            "timestamp": timestamp,
+            "text": text,
+            "text_length": len(text),
+            "entities_count": len(entities_log),
+            "entities": entities_log,
+            "model": "en_core_web_sm"  # 或实际使用的模型
+        }
+        
+        # 写入日志文件
+        with open(log_file, 'w', encoding='utf-8') as f:
+            json.dump(log_content, f, ensure_ascii=False, indent=2)
+        
+        logger.info(f"NER详细分析日志已保存至: {log_file}") 

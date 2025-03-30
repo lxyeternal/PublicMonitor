@@ -2,6 +2,7 @@ import os
 import json
 import logging
 import uuid
+import time
 from typing import Dict, List, Any
 
 from services.llm_service import LLMService
@@ -85,6 +86,9 @@ class EventExtractor:
         """
         logger.info("开始使用LLM补充和优化提取结果")
         
+        # 记录传统方法结果
+        self._log_extraction_comparison("pre_llm", extraction_result)
+        
         # 加载提示词模板
         prompt_template = self.text_processor.load_prompt("entity_extraction")
         
@@ -108,15 +112,47 @@ class EventExtractor:
             llm_result = json.loads(response)
             logger.info(f"LLM成功提取 {len(llm_result.get('entities', []))} 个实体和 {len(llm_result.get('event_triggers', []))} 个事件触发词")
             
+            # 记录LLM结果
+            self._log_extraction_comparison("llm_only", llm_result)
+            
             # 合并传统方法和LLM的结果
             merged_result = self.merge_extraction_results(extraction_result, llm_result)
             logger.info(f"合并后共有 {len(merged_result.get('entities', []))} 个实体和 {len(merged_result.get('event_triggers', []))} 个事件触发词")
+            
+            # 记录合并结果
+            self._log_extraction_comparison("merged", merged_result)
             
             return merged_result
         except Exception as e:
             logger.error(f"解析LLM提取结果失败: {e}")
             logger.error(f"原始响应: {response}")
             return extraction_result
+    
+    def _log_extraction_comparison(self, stage, result):
+        """记录不同阶段的提取结果对比"""
+        # 创建日志目录
+        log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 
+                              "logs", "analysis_logs", "llm_enhancement")
+        os.makedirs(log_dir, exist_ok=True)
+        
+        # 创建日志文件名（使用时间戳）
+        timestamp = int(time.time())
+        log_file = os.path.join(log_dir, f"{stage}_extraction_{timestamp}.json")
+        
+        # 准备日志内容
+        log_content = {
+            "timestamp": timestamp,
+            "stage": stage,
+            "entities_count": len(result.get("entities", [])),
+            "triggers_count": len(result.get("event_triggers", [])),
+            "result": result
+        }
+        
+        # 写入日志文件
+        with open(log_file, 'w', encoding='utf-8') as f:
+            json.dump(log_content, f, ensure_ascii=False, indent=2)
+        
+        logger.info(f"{stage}阶段提取结果已保存至: {log_file}")
     
     def merge_extraction_results(self, traditional_result, llm_result):
         """
@@ -381,25 +417,41 @@ class EventExtractor:
             return basic_result
     
     def extract_events_from_text(self, text, document_id=None):
-        """
-        从文本中提取事件结构的主流程
-        
-        Args:
-            text: 原始文本
-            document_id: 文档ID
-            
-        Returns:
-            完整的事件结构
-        """
+        """从文本中提取事件结构的主流程"""
         logger.info("开始从文本中提取事件结构")
+        
+        # 创建分析会话ID
+        session_id = str(uuid.uuid4())
+        logger.info(f"分析会话ID: {session_id}")
+        
+        # 记录初始文本
+        self._log_analysis_session(session_id, "input", {
+            "text": text,
+            "document_id": document_id,
+            "text_length": len(text)
+        })
         
         # 文本预处理
         processed_text = self.text_processor.preprocess_text(text)
+        
+        # 记录预处理文本
+        self._log_analysis_session(session_id, "preprocessing", {
+            "processed_text": processed_text,
+            "processed_length": len(processed_text)
+        })
         
         # 步骤1: 提取实体和触发词
         extraction_result = self.extract_entities_and_triggers(processed_text)
         entities = extraction_result.get("entities", [])
         triggers = extraction_result.get("event_triggers", [])
+        
+        # 记录实体和触发词
+        self._log_analysis_session(session_id, "extraction", {
+            "entities_count": len(entities),
+            "triggers_count": len(triggers),
+            "entities": entities,
+            "triggers": triggers
+        })
         
         # 步骤2: 构建事件结构
         construction_result = self.construct_events(processed_text, entities, triggers)
@@ -408,8 +460,37 @@ class EventExtractor:
         # 步骤3: 整合事件结构
         final_result = self.integrate_events(processed_text, events, entities, document_id)
         
+        # 记录最终结果
+        self._log_analysis_session(session_id, "final", {
+            "document_id": document_id,
+            "events_count": len(final_result.get("events", [])),
+            "entities_count": len(final_result.get("entities", [])),
+            "complete_result": final_result
+        })
+        
         logger.info("事件结构提取完成")
         return final_result
+    
+    def _log_analysis_session(self, session_id, stage, data):
+        """记录分析会话的各个阶段"""
+        # 创建日志目录
+        log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 
+                              "logs", "analysis_sessions", session_id)
+        os.makedirs(log_dir, exist_ok=True)
+        
+        # 创建日志文件
+        log_file = os.path.join(log_dir, f"{stage}.json")
+        
+        # 添加元数据
+        data["timestamp"] = int(time.time())
+        data["session_id"] = session_id
+        data["stage"] = stage
+        
+        # 写入日志文件
+        with open(log_file, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        
+        logger.info(f"分析会话 {session_id} 的 {stage} 阶段日志已保存")
     
     def extract_events_from_file(self, file_path, document_id=None):
         """

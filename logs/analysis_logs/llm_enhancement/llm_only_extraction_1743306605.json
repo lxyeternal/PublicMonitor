@@ -1,0 +1,383 @@
+{
+  "timestamp": 1743306605,
+  "stage": "llm_only",
+  "entities_count": 16,
+  "triggers_count": 14,
+  "result": {
+    "entities": [
+      {
+        "entity_id": "E1",
+        "text": "华为云",
+        "type": "ORGANIZATION",
+        "mentions": [
+          {
+            "text": "华为云",
+            "position": [
+              20,
+              23
+            ]
+          },
+          {
+            "text": "华为云",
+            "position": [
+              191,
+              194
+            ]
+          },
+          {
+            "text": "华为云",
+            "position": [
+              671,
+              674
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E2",
+        "text": "云容器引擎",
+        "type": "OTHER",
+        "mentions": [
+          {
+            "text": "云容器引擎",
+            "position": [
+              23,
+              29
+            ]
+          },
+          {
+            "text": "容器引擎",
+            "position": [
+              246,
+              250
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E3",
+        "text": "GitHub",
+        "type": "ORGANIZATION",
+        "mentions": [
+          {
+            "text": "GitHub",
+            "position": [
+              50,
+              56
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E4",
+        "text": "XSS漏洞",
+        "type": "OTHER",
+        "mentions": [
+          {
+            "text": "XSS漏洞",
+            "position": [
+              61,
+              66
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E5",
+        "text": "科研单位客户",
+        "type": "OTHER",
+        "mentions": [
+          {
+            "text": "科研单位客户",
+            "position": [
+              75,
+              81
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E6",
+        "text": "华为云安全团队",
+        "type": "ORGANIZATION",
+        "mentions": [
+          {
+            "text": "华为云安全团队",
+            "position": [
+              108,
+              116
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E7",
+        "text": "高级持续性威胁（APT）组织",
+        "type": "OTHER",
+        "mentions": [
+          {
+            "text": "高级持续性威胁（APT）组织",
+            "position": [
+              186,
+              211
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E8",
+        "text": "JavaScript代码",
+        "type": "OTHER",
+        "mentions": [
+          {
+            "text": "JavaScript代码",
+            "position": [
+              278,
+              294
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E9",
+        "text": "华为云CCE（Cloud Container Engine）4.0版本",
+        "type": "OTHER",
+        "mentions": [
+          {
+            "text": "华为云CCE（Cloud Container Engine）4.0版本",
+            "position": [
+              366,
+              408
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E10",
+        "text": "国家重点实验室",
+        "type": "ORGANIZATION",
+        "mentions": [
+          {
+            "text": "国家重点实验室",
+            "position": [
+              470,
+              478
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E11",
+        "text": "华为云安全响应中心（HWCSRC）",
+        "type": "ORGANIZATION",
+        "mentions": [
+          {
+            "text": "华为云安全响应中心（HWCSRC）",
+            "position": [
+              483,
+              515
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E12",
+        "text": "昨日",
+        "type": "TIME",
+        "mentions": [
+          {
+            "text": "昨日",
+            "position": [
+              519,
+              521
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E13",
+        "text": "CVE-2025-XXXX",
+        "type": "OTHER",
+        "mentions": [
+          {
+            "text": "CVE-2025-XXXX",
+            "position": [
+              528,
+              542
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E14",
+        "text": "国家网络安全主管部门",
+        "type": "ORGANIZATION",
+        "mentions": [
+          {
+            "text": "国家网络安全主管部门",
+            "position": [
+              678,
+              692
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E15",
+        "text": "72小时",
+        "type": "TIME",
+        "mentions": [
+          {
+            "text": "72小时",
+            "position": [
+              717,
+              722
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E16",
+        "text": "下周",
+        "type": "TIME",
+        "mentions": [
+          {
+            "text": "下周",
+            "position": [
+              774,
+              776
+            ]
+          }
+        ]
+      }
+    ],
+    "event_triggers": [
+      {
+        "trigger_id": "T1",
+        "text": "捕获",
+        "position": [
+          7,
+          9
+        ],
+        "potential_type": "监控事件"
+      },
+      {
+        "trigger_id": "T2",
+        "text": "攻击",
+        "position": [
+          30,
+          32
+        ],
+        "potential_type": "网络攻击事件"
+      },
+      {
+        "trigger_id": "T3",
+        "text": "披露",
+        "position": [
+          57,
+          59
+        ],
+        "potential_type": "信息披露事件"
+      },
+      {
+        "trigger_id": "T4",
+        "text": "处罚",
+        "position": [
+          91,
+          93
+        ],
+        "potential_type": "法律事件"
+      },
+      {
+        "trigger_id": "T5",
+        "text": "发布",
+        "position": [
+          117,
+          119
+        ],
+        "potential_type": "公告事件"
+      },
+      {
+        "trigger_id": "T6",
+        "text": "注入",
+        "position": [
+          271,
+          273
+        ],
+        "potential_type": "网络攻击事件"
+      },
+      {
+        "trigger_id": "T7",
+        "text": "窃取",
+        "position": [
+          312,
+          314
+        ],
+        "potential_type": "数据泄露事件"
+      },
+      {
+        "trigger_id": "T8",
+        "text": "建立",
+        "position": [
+          319,
+          321
+        ],
+        "potential_type": "后门创建事件"
+      },
+      {
+        "trigger_id": "T9",
+        "text": "入侵",
+        "position": [
+          452,
+          454
+        ],
+        "potential_type": "网络攻击事件"
+      },
+      {
+        "trigger_id": "T10",
+        "text": "发布",
+        "position": [
+          516,
+          518
+        ],
+        "potential_type": "公告事件"
+      },
+      {
+        "trigger_id": "T11",
+        "text": "警告",
+        "position": [
+          693,
+          695
+        ],
+        "potential_type": "安全警告事件"
+      },
+      {
+        "trigger_id": "T12",
+        "text": "修复",
+        "position": [
+          723,
+          725
+        ],
+        "potential_type": "漏洞修复事件"
+      },
+      {
+        "trigger_id": "T13",
+        "text": "提供",
+        "position": [
+          785,
+          787
+        ],
+        "potential_type": "服务提供事件"
+      },
+      {
+        "trigger_id": "T14",
+        "text": "建议",
+        "position": [
+          798,
+          800
+        ],
+        "potential_type": "安全建议事件"
+      }
+    ]
+  }
+}
