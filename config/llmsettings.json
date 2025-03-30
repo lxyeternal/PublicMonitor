@@ -1,0 +1,7 @@
+{
+  "azure_api_type": "azure",
+  "azure_api_base": "https://malicious-intelligence.openai.azure.com/",
+  "azure_api_version": "2024-02-15-preview",
+  "azure_api_key": "65fda776b8af45bd943e2bbd15773ab0",
+  "deployment_name": "gpt-4o"
+}

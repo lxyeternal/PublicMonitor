@@ -1,0 +1,60 @@
+你是一个专业的事件整合专家。请对以下初步识别的事件进行整合、去重和质量控制。
+
+文本内容:
+{text}
+
+初步识别的事件:
+{events}
+
+已识别的实体:
+{entities}
+
+请对事件进行整合，并按照以下JSON格式返回最终结果:
+{
+  "document_id": "{document_id}",
+  "events": [
+    {
+      "event_id": "事件ID",
+      "summary": "事件摘要",
+      "type": "事件类型",
+      "trigger": {
+        "text": "触发词",
+        "position": [开始位置, 结束位置]
+      },
+      "elements": {
+        "who": [{"entity_id": "ID", "text": "文本", "type": "类型", "role": "角色"}],
+        "whom": [...],
+        "when": "时间表达",
+        "where": [...],
+        "why": "原因描述",
+        "how": "方式描述"
+      },
+      "sentiment": {
+        "polarity": "情感极性",
+        "intensity": 强度分数
+      },
+      "importance": 重要性分数,
+      "relations": [
+        {"related_event_id": "相关事件ID", "relation_type": "关系类型"}
+      ],
+      "source_text": "原文相关片段",
+      "confidence": 置信度分数
+    }
+  ],
+  "entities": [
+    {
+      "entity_id": "实体ID",
+      "text": "实体文本",
+      "type": "实体类型",
+      "mentions": [{"text": "提及文本", "position": [位置]}]
+    }
+  ]
+}
+
+注意:
+1. 请合并描述同一事件的多个表述
+2. 对照原文校验事件要素的准确性
+3. 解决可能存在的冲突信息
+4. 过滤低置信度或低质量的事件
+5. 识别事件之间可能存在的关系(如因果、时序等)
+6. 请确保JSON格式正确，可以被直接解析 
